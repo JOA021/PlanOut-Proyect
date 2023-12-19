@@ -1,51 +1,44 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" >
-	<div class="modal-dialog" role="document">
-	<div class="modal-content">     <i class="bi bi-chat-dots-fill text-center  icono-personalizado "></i>
-	  <div class="modal-header ">
-   
-	  
-	  <h5 class=" text-center container-md"> Si no recuerdas tu información, te ayudaremos. </h5>
-	  </div>
-	  <div class="modal-body justify-content-center ">
-	  <form>
-		<div class="form-group">
-			<span>Ingresa tu CORREO</span>
-			<input type="email" name="login" placeholder="Correo Electrónico" />
-		  </div>
-	  </form>
-	  <br>
-	  </div>
-	  <div class="modal-footer justify-content-center ">
-	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-	  <button type="button" >Enviar</button>
-	  </div>
-	</div>
-	</div>
-  </div>
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <i class="bi bi-chat-dots-fill text-center icono-personalizado"></i>
+            <div class="modal-header">
+                <h5 class="text-center container-md">Si no recuerdas tu información, te ayudaremos.</h5>
+            </div>
+            <div class="modal-body justify-content-center ">
+                <form>
+                    <div class="form-group">
+                        <span>Ingresa tu CORREO</span>
+                        <input type="email" name="login" placeholder="Correo Electrónico" />
+                    </div>
+                </form>
+                <br>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                <button type="button">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container" id="container">
-	<div class="form-container sign-in-container">
-		<form action="#">
-			<img [src]="rutaImagen" alt="logo" class="logologin">
-
-			<span>Ingresa tus datos</span>
-			<input type="email" name="login" placeholder="Correo Electrónico" />
-			<input type="password" placeholder="Contraseña" />
-			<a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" >¿Olvidaste tu contraseña?</a>			
-			
-				
-			<a routerLink="/register" class="register">Crear una cuenta</a>
-			<button routerLink="/home"type="submit">Inicia Sesión</button>
-		</form>
-		
-	</div>
-			<div class="overlay-panel overlay-right">
-				<h1>¡Bienvenido!</h1>
-				<p>Disfruta y programa tu día de acuerdo al clima, ¡No dejes que nada te desanime!</p>
-				<button routerLink="/register" class="ghost" id="signUp">Regístrate</button>
-			</div>
-		</div>
-
+    <div class="form-container sign-in-container">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <img [src]="rutaImagen" alt="logo" class="logologin">
+            <span>Ingresa tus datos</span>
+            <input type="email" formControlName="email" placeholder="Correo Electrónico" />
+            <input type="password" formControlName="password" placeholder="Contraseña" />
+            <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">¿Olvidaste tu contraseña?</a>
+            <a routerLink="/register" class="register">Crear una cuenta</a>
+            <button type="submit">Inicia Sesión</button>
+        </form>
+    </div>
+    <div class="overlay-panel overlay-right">
+        <h1>¡Bienvenido!</h1>
+        <p>Disfruta y programa tu día de acuerdo al clima, ¡No dejes que nada te desanime!</p>
+        <button routerLink="/register" class="ghost" id="signUp">Regístrate</button>
+    </div>
+</div>
 
 <router-outlet></router-outlet>
