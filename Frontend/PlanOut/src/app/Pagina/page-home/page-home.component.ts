@@ -12,6 +12,7 @@ import { Chatgpt } from '../../models/chatgpt.models';
 import { ChatGptService } from '../../services/chatgpt.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Token } from '@angular/compiler';
+import { ClimaService } from '../../services/clima.service';
 
 
 @Component({
@@ -25,9 +26,14 @@ import { Token } from '@angular/compiler';
 
 export class PageHomeComponent {
   preferencesForm: FormGroup;
-  Temp: string;
 
-  constructor(private ChatGptService: ChatGptService, private router: Router) {
+  Temp: string = "24";
+  year: string = "2024";
+  month: string = "12";   
+  day: string = "30";  
+     
+
+  constructor(private ChatGptService: ChatGptService,private ClimaService: ClimaService, private router: Router) {
     this.preferencesForm = new FormGroup({
       location: new FormControl('', Validators.required),
       peopleCount: new FormControl('', Validators.required),
@@ -35,20 +41,39 @@ export class PageHomeComponent {
       activityType: new FormControl('', Validators.required),
       additionalPreferences: new FormControl('', Validators.required)
     });
-    this.Temp = "24";
+    
   }
 
   onSubmit() {
     if (!this.preferencesForm.valid) {
       return;
     }
+    
+
+    this.ClimaService.TraerClima(this.preferencesForm.value.location, parseInt(this.year), parseInt(this.month), parseInt(this.day)).subscribe({
+      next: (clima) => {
+        console.log(clima);
+        // this.Temp = clima.temperatura_predicha;
+      },
+      error: (error) => {
+        console.error(error);
+        // Handle registration error
+      }
+    })
+
 
     const newChatgpt: Chatgpt = {
       Plan: this.preferencesForm.value.additionalPreferences,
       Ciudad: this.preferencesForm.value.location,
       Temp: this.Temp
       };
+      
       console.log(location)
+     
+      
+
+
+
       
     this.ChatGptService.CrearPlan(newChatgpt).subscribe({
       next: (chatpt) => {

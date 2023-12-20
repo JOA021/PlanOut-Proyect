@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable ,Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, Token } from "../models/users.models"
 import { Chatgpt } from '../models/chatgpt.models';
@@ -23,7 +23,7 @@ export class ChatGptService {
   CrearPlan(chatgpt: Chatgpt):Observable<Chatgpt>{
     let headers = this.headers;
     const token:string = localStorage.getItem(this.tokenName) as string
-    // headers = headers.append("Authorization", token)
+    headers = headers.append("authorization", token)    
     return this.http.post<Chatgpt>(this.apiUrl+"/crearplan", JSON.stringify(chatgpt),{ headers: this.headers })
    
   }
