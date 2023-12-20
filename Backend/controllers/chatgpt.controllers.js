@@ -17,7 +17,7 @@ export const createPlan = async (request, response) => {
     messages: [
       {
         role: "user",
-        content: `Actua como un coordinador de actividades en ${plan.ciudad}, ten presente que deseamos ${plan.Plan}, generanos actividades relacionadas que se puedan hacer comprendiendo que la tenperatura ese dia sera de: ${plan.Temp} grados, indicanos nombres de lugares reconocidos en la ciudad si es el caso`,
+        content: `Actua como un coordinador de actividades en ${plan.Ciudad}, ten presente que deseamos ${plan.Plan}, generanos actividades relacionadas que se puedan hacer comprendiendo que la tenperatura ese dia sera de: ${plan.Temp} grados, indicanos nombres de lugares reconocidos en la ciudad si es el caso`,
       }
     ],
     temperature: 0.7,

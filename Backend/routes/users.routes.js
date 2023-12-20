@@ -11,7 +11,7 @@ router.post('/singupUsers', singup)
 router.post('/loginUsers', login)
 
 // Rutas para obtener los usuarios
-router.get('/getUsers', getUser)
+router.post('/getUsers', getUser)
 
 
 

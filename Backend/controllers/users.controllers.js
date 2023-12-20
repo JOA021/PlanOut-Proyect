@@ -33,6 +33,7 @@ export const login = async (request, response) => {
         let body = request.body
 
         let userExist = await usersModel.findOne({ email: body.email })
+        
 
         if (!userExist) {
             return response.json({ error: "No existe un usuario con este gmail" })
@@ -46,7 +47,7 @@ export const login = async (request, response) => {
 
             const userData = {
                 token,
-                userExist
+                // userExist
             }
             return response.send(userData)
         } else {
@@ -60,10 +61,11 @@ export const login = async (request, response) => {
 }
 
 export const getUser = async (request, response) => {
+        let body = request.body;  
 
     try {
-        let user = await usersModel.find()
-        response.json(user)
+        let userExist = await usersModel.findOne({ email: body.email })
+        response.json(userExist)
 
     } catch (e) {
         console.log(e)

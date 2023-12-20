@@ -6,6 +6,8 @@ import routerEmail from './routes/email.routes.js'
 import newPassword from './routes/reset.password.routes.js'
 import routerPlan from './routes/chatgpt.routes.js'
 import routerClima from './routes/clima.routes.js'
+import cors from 'cors';
+
 
 
 dotenv.config()
@@ -13,9 +15,10 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 const PORT = process.env.PORT
+app.use(cors());
 
 // Rutas
-app.use('/singup', users)
+app.use('/users', users)
 
 app.use('/sendmail', routerEmail )
 
