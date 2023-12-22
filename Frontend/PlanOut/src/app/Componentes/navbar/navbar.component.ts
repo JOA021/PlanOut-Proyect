@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet,RouterModule } from '@angular/router';
+import { RouterOutlet,RouterModule ,Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,12 @@ import { RouterOutlet,RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   rutaImagen= 'assets/logo.png';
-  
+  constructor(private router: Router) {}
+
+  cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/']);
+  }
  
 }
 
