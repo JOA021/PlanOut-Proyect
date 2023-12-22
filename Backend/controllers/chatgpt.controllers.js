@@ -17,7 +17,7 @@ export const createPlan = async (request, response) => {
     messages: [
       {
         role: "user",
-        content: `Actua como un coordinador de actividades en ${plan.Ciudad}, ten presente que deseamos ${plan.Plan}, generanos actividades relacionadas que se puedan hacer comprendiendo que la tenperatura ese dia sera de: ${plan.Temp} grados, indicanos nombres de lugares reconocidos en la ciudad si es el caso`,
+        content: `Actua como un coordinador de actividades en la ciudad de ${plan.Ciudad}, ten presente que somos ${plan.NumeroPersonas} personas,  deseamos un plan ${plan.TipoPlan}, con algunas actividades del tipo: ${plan.Actividad}  generanos actividades relacionadas que se puedan hacer comprendiendo que la tenperatura ese dia sera de: ${plan.Temp} grados, adicional queremos : : ${plan.Adicionales} indicanos nombres de lugares reconocidos en la ciudad si es el caso`,
       }
     ],
     temperature: 0.7,
@@ -40,7 +40,7 @@ export const createPlan = async (request, response) => {
     response.json({ message: mensajeSalida });
     console.log(mensajeSalida);
   } catch (e) {
-    console.error("Error al hacer la petición a OpenAI:", error);
+    console.error("Error al hacer la peticiÃ³n a OpenAI:", error);
     response.status(500).send("Error al comunicarse con OpenAI");
   }
 };

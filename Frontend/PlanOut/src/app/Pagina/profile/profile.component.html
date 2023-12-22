@@ -2,15 +2,12 @@
 
 <article class="profile">
     <div class="container profile-container text-center">
-        <img src="default-profile-picture.jpg" alt="Foto de perfil" class="profile-picture">
+        <i routerLink="/home"  width="200" class="face bi bi-person-circle"></i>
         <h2 class="text-center">Perfil del Usuario</h2>
     </div>
 
     <div class="container mt-5">
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <!-- Columna Izquierda -->
-                <div class="col-md-6">
+
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" formControlName="nombre" class="form-control">
@@ -20,33 +17,15 @@
                         <input type="text" formControlName="apellido" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="edad">Edad:</label>
-                        <input type="number" formControlName="edad" class="form-control">
-                    </div>
-                </div>
-
-                <!-- Columna Derecha -->
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="relacion">Relación Sentimental:</label>
-                        <input type="text" formControlName="relacion" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="nacionalidad">Nacionalidad:</label>
-                        <input type="text" formControlName="nacionalidad" class="form-control">
-                    </div>
-                    <div class="form-group">
                         <label for="Correo">Correo electrónico:</label>
                         <input type="email" formControlName="email" class="form-control">
                     </div>
-                </div>
-            </div>
 
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-secondary" [disabled]="!profileForm.valid">Actualizar Perfil</button>
             </div>
-        </form>
-    </div>
+        </div>
+
 </article>
 
 <app-footer class="espacio"></app-footer>

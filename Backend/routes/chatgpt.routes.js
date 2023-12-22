@@ -4,6 +4,6 @@ import {verificarToken} from '../middlewares/validation.token.js'
 
 const router = express.Router()
 
-router.post('/crearplan', createPlan)
+router.post('/crearplan',verificarToken ,createPlan)
 
 export default router

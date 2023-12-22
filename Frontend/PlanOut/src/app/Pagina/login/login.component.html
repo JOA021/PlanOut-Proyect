@@ -5,18 +5,18 @@
             <div class="modal-header">
                 <h5 class="text-center container-md">Si no recuerdas tu información, te ayudaremos.</h5>
             </div>
-            <div class="modal-body justify-content-center ">
-                <form>
+            <div class="modal-body justify-content-center">
+                <form (ngSubmit)="sendEmail()">
                     <div class="form-group">
                         <span>Ingresa tu CORREO</span>
-                        <input type="email" name="login" placeholder="Correo Electrónico" />
+                        <input type="email" name="login" [(ngModel)]="userEmail" placeholder="Correo Electrónico" />
                     </div>
                 </form>
                 <br>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                <button type="button">Enviar</button>
+                <button type="button" (click)="sendEmail()">Enviar</button>
             </div>
         </div>
     </div>

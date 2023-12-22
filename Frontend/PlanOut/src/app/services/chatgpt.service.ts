@@ -24,7 +24,7 @@ export class ChatGptService {
     let headers = this.headers;
     const token:string = localStorage.getItem(this.tokenName) as string
     headers = headers.append("authorization", token)    
-    return this.http.post<Chatgpt>(this.apiUrl+"/crearplan", JSON.stringify(chatgpt),{ headers: this.headers })
+    return this.http.post<Chatgpt>(this.apiUrl+"/crearplan", JSON.stringify(chatgpt),{ headers: headers })
    
   }
   isLogged():boolean{

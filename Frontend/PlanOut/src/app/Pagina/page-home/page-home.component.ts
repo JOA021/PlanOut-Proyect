@@ -27,11 +27,14 @@ import { ClimaService } from '../../services/clima.service';
 export class PageHomeComponent {
   preferencesForm: FormGroup;
 
-  Temp: string = "24";
+  Temp?: string ;
   year: string = "2024";
   month: string = "12";   
   day: string = "30";  
-     
+  chatptDetails: string = ''; 
+  isModalShown: boolean = false;
+
+  
 
   constructor(private ChatGptService: ChatGptService,private ClimaService: ClimaService, private router: Router) {
     this.preferencesForm = new FormGroup({
@@ -52,8 +55,35 @@ export class PageHomeComponent {
 
     this.ClimaService.TraerClima(this.preferencesForm.value.location, parseInt(this.year), parseInt(this.month), parseInt(this.day)).subscribe({
       next: (clima) => {
-        console.log(clima);
-        // this.Temp = clima.temperatura_predicha;
+        
+        this.Temp=clima.temperatura_predicha
+        console.log(this.Temp)
+        const newChatgpt: Chatgpt = {
+          TipoPlan: this.preferencesForm.value.planType,
+          NumeroPersonas: this.preferencesForm.value.peopleCount,
+          Ciudad: this.preferencesForm.value.location,
+          Actividad: this.preferencesForm.value. activityType,
+          Adicionales: this.preferencesForm.value.additionalPreferences,
+          Temp: this.Temp  
+    
+          };
+          
+          console.log(this.Temp )   
+                      
+        this.ChatGptService.CrearPlan(newChatgpt).subscribe({
+          next: (chatpt) => {
+            console.log(chatpt);
+            this.chatptDetails = JSON.stringify(chatpt.message); // Actualiza la variable con los datos de chatpt
+            this.showModal(); //
+            this.router.navigate(['/home']);
+          },
+          error: (error) => {
+            console.error(error);
+            // Handle registration error
+          }
+        });
+        
+        
       },
       error: (error) => {
         console.error(error);
@@ -62,30 +92,17 @@ export class PageHomeComponent {
     })
 
 
-    const newChatgpt: Chatgpt = {
-      Plan: this.preferencesForm.value.additionalPreferences,
-      Ciudad: this.preferencesForm.value.location,
-      Temp: this.Temp
-      };
-      
-      console.log(location)
-     
-      
+   
 
-
-
-      
-    this.ChatGptService.CrearPlan(newChatgpt).subscribe({
-      next: (chatpt) => {
-        console.log(chatpt);
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        console.error(error);
-        // Handle registration error
-      }
-    });
-
-    console.log('Form Data:', this.preferencesForm.value);
+    // console.log('Form Data:', this.preferencesForm.value);
   }
+  showModal() {
+    this.isModalShown = true;
+  }
+
+  hideModal() {
+    this.isModalShown = false;
+  }
+     
+
 }

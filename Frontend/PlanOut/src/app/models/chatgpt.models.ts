@@ -1,5 +1,9 @@
 export interface Chatgpt {
-    Plan: string;
-    Ciudad: string;
-    Temp: string;   
+  TipoPlan?: string;
+  NumeroPersonas?: string;
+  Ciudad?: string;
+  Actividad?:string;
+  Adicionales?:string;
+  message?:string;
+  Temp?:string;
   }

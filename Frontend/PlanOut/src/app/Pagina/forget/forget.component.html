@@ -1,14 +1,29 @@
-
 <div class="vid-container">
     <div class="inner-container">
       <div class="box">
         <div class="text-center justify-content-center">
-        <img [src]="rutaImagen" alt="logo" class="logologin"></div>
-        <h1 >Actualiza tu clave</h1>
-        <input type="password" class="login-input" placeholder="contraseña" required/>
-        <input type="password" class="login-input" placeholder="confirmar contraseña" required/>
-        <div class="modal-footer justify-content-center ">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Enviar</button></div>
+        </div>
+        <h1>Actualiza tu clave</h1>
+        <form [formGroup]="resetForm" (submit)="resetPassword()">
+          <input type="password" formControlName="newPassword" class="login-input" placeholder="Nueva contraseña" />
+          <input type="password" formControlName="confirmPassword" class="login-input" placeholder="Confirmar contraseña" />
+  
+          <div *ngIf="resetForm.hasError('passwordMismatch')" class="error-message">
+            Las contraseñas no coinciden. Por favor, inténtalo de nuevo.
+          </div>
+  
+          <div *ngIf="changePasswordSuccess" class="success-message">
+            ¡Contraseña cambiada con éxito!
+          </div>
+  
+          <div *ngIf="changePasswordError" class="error-message">
+            {{ changePasswordError }}
+          </div>
+  
+          <div class="modal-footer justify-content-center">
+            <button type="submit" class="btn btn-secondary">Enviar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

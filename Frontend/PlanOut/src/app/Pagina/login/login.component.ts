@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { User } from '../../models/users.models';
 import { Token } from '@angular/compiler';
+import { EmailService } from '../../services/email.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,10 @@ import { Token } from '@angular/compiler';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  userEmail: string = ''; 
   rutaImagen = 'assets/logo.png';
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router,  private emailService: EmailService) {
     this.loginForm = new FormGroup({
       email: new FormControl(),
       password: new FormControl()
@@ -51,4 +53,30 @@ export class LoginComponent {
       }
     })
   }
+
+  sendEmail() {
+
+
+    
+    if (!this.userEmail) {
+        console.log("El email no existe")
+        return;
+    }
+
+    this.emailService.sendEmail(this.userEmail).subscribe({
+        next: (response) => {
+            console.log(response);
+            // Manejar la respuesta del servidor si es necesario
+        },
+        error: (error) => {
+            console.error(error);
+            // Manejar errores si es necesario
+        }
+      });
 }
+
+}
+
+
+
+
