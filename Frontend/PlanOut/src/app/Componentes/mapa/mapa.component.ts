@@ -42,6 +42,7 @@ export class MapaComponent {
 
 
   ngOnInit() {
+    console.log("Hola")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.center.lat = position.coords.latitude
@@ -51,7 +52,7 @@ export class MapaComponent {
           lng: position.coords.longitude
         });
       });
-      
+
     }
   }
 
@@ -70,9 +71,9 @@ export class MapaComponent {
     }).subscribe((results)=>{
       console.log(results)
     })
-        
+
   }
 
-  
+
 
 }

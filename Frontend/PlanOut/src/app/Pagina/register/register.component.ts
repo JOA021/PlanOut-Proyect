@@ -22,12 +22,34 @@ export class RegisterComponent {
     this.registerForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }
 
   onSubmit() {
+    const emailControl = this.registerForm.get('email');
+    const passwordControl = this.registerForm.get('password');
+
+    if (emailControl && passwordControl) {
+      const email = emailControl.value;
+      const password = passwordControl.value;
+
+      if (!this.customEmailValidator(email)) {
+        console.log('Correo electrónico no válido');
+        return;
+      }
+
+      if (!this.passwordValidator(password)) {
+        console.log('Contraseña no válida. Debe tener al menos 8 caracteres y contener al menos un carácter especial.');
+        return;
+      }
+    } else {
+      console.error('No se pudo obtener el control de correo electrónico o contraseña.');
+      return;
+    }
+
     if (!this.registerForm.valid) {
+      console.log('Formulario no válido');
       return;
     }
 
@@ -40,13 +62,55 @@ export class RegisterComponent {
     this.userService.register(newUser).subscribe({
       next: (user) => {
         console.log(user);
-        // Handle successful registration
-        this.router.navigate(['/home']);
+        this.router.navigate(['']);
       },
       error: (error) => {
         console.error(error);
-        // Handle registration error
       }
     });
+  }
+
+  customEmailValidator(email: string): boolean {
+    const emailControl = this.registerForm?.get('email');
+  
+    if (!emailControl) {
+      console.error('No se pudo obtener el control de correo electrónico.');
+      return false;
+    }
+  
+    const isValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);
+  
+    if (!isValid) {
+      emailControl.setErrors({ 'email': true });
+      return false;
+    }
+  
+    const atIndex = email.indexOf('@');
+    const dotIndex = email.indexOf('.', atIndex);
+  
+    if (dotIndex === -1 || dotIndex <= atIndex) {
+      emailControl.setErrors({ 'dotAfterAt': true });
+      return false;
+    }
+  
+    return true;
+  }
+  
+  passwordValidator(password: string): boolean {
+    const passwordControl = this.registerForm?.get('password');
+  
+    if (!passwordControl) {
+      console.error('No se pudo obtener el control de la contraseña.');
+      return false;
+    }
+  
+    const isValid = password.length >= 8 && /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password);
+  
+    if (!isValid) {
+      passwordControl.setErrors({ 'invalidPassword': true });
+      return false;
+    }
+  
+    return true;
   }
 }

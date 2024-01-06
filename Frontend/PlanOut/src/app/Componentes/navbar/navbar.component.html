@@ -29,11 +29,12 @@
 <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container">
       <a class="navbar-brand" >
-        <img [src]="rutaImagen"  class="logo" width="150" >
+        <img routerLink="/home"  [src]="rutaImagen"  class="logo" width="150" >
       </a> 
     </div>
     <div class="nav-profile">
-      <img routerLink="/profile" alt="profile" class="img-circle">
+      <i routerLink="/profile" alt="profile" class="bi bi-person-circle"></i>
+
     </div>
   </nav>
 
@@ -80,4 +81,3 @@
 </ul>
 </div>
 </nav>
-

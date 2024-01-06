@@ -9,38 +9,47 @@ import { User, Token } from "../models/users.models"
 })
 export class UserService {
 
-  apiUrl = "http://localhost:3000/users"
+  apiUrl = "http://localhost:3000/users";
+  tokenName = "TOKEN";
 
-  tokenName = "TOKEN"
+  constructor(private http: HttpClient) { }
 
-  constructor(private http:HttpClient) { }
+  headers: HttpHeaders = new HttpHeaders({
+    "Content-Type": "application/json"
+  });
 
-  headers:HttpHeaders = new HttpHeaders({
-    "Content-Type":"application/json"
-  })
-
-  login(user: User):Observable<Token>{
-    return this.http.post<Token>(this.apiUrl+"/loginUsers", JSON.stringify(user),{ headers: this.headers })
+  register(user: User): Observable<Token | { error: string }> {
+    return this.http.post<Token>(`${this.apiUrl}/singupUsers`, user, { headers: this.headers });
+  }
+  
+  login(user: User): Observable<{ token: string } | { error: string }> {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/loginUsers`, JSON.stringify(user), { headers: this.headers });
   }
 
-  register(user:User): Observable<User> {
-    return this.http.post<User>(this.apiUrl+"/singupUsers", user,{ headers: this.headers }) 
-  }
-
-  isLogged():boolean{
+  isLogged(): boolean {
     return localStorage.getItem(this.tokenName) ? true : false;
   }
 
-  saveToken(token:Token){
-    localStorage.setItem(this.tokenName, token.token)
+  saveToken(token: string): void {
+    if (token) {
+      localStorage.setItem(this.tokenName, token);
+    } else {
+      localStorage.removeItem(this.tokenName);
+    }
   }
+  
 
-  Profile(user: User):Observable<User>{
+  Profile(user: User): Observable<User> {
     let headers = this.headers;
-    const token:string = localStorage.getItem(this.tokenName) as string
-    headers = headers.append("Authorization", token)
-    return this.http.post<User>(this.apiUrl+"/getUsers", JSON.stringify(user),{ headers: this.headers })
-   
+    const token: string = localStorage.getItem(this.tokenName) as string;
+    headers = headers.append("Authorization", token);
+    return this.http.post<User>(this.apiUrl + "/getUsers", JSON.stringify(user), { headers: this.headers });
   }
 
+  editUsername(user: User) {
+    let headers = this.headers;
+    const token: string = localStorage.getItem(this.tokenName) as string;
+    headers = headers.append("Authorization", token);
+    return this.http.put(this.apiUrl + "/editUsername", JSON.stringify(user), { headers: headers });
+  }
 }

@@ -18,6 +18,11 @@ button {
     font-family: 'Montserrat', sans-serif;
 }
 
+.nav-profile{
+  font-size: 30px; 
+  color: #31485E;
+}
+
 @font-face {
     font-family: 'Titillium Web';
     font-style: normal;
@@ -108,4 +113,3 @@ button {
     padding-top: 0;
   
     } }
-

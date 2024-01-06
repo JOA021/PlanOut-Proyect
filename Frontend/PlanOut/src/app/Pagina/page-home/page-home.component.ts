@@ -28,11 +28,12 @@ export class PageHomeComponent {
   preferencesForm: FormGroup;
 
   Temp?: string ;
-  year: string = "2024";
-  month: string = "12";   
-  day: string = "30";  
+  year: string = "";
+  month: string = "";   
+  day: string = "";  
   chatptDetails: string = ''; 
   isModalShown: boolean = false;
+
 
   
 
@@ -44,14 +45,80 @@ export class PageHomeComponent {
       activityType: new FormControl('', Validators.required),
       additionalPreferences: new FormControl('', Validators.required)
     });
-    
+    this.generateCalendar();
   }
 
+  
+  months: string[] = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
+
+  currentDate: Date = new Date();
+  calendar: Array<number | null>[] = [];
+  selectedDay: number | null = null;
+
+  generateCalendar(): void {
+    const daysInMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
+    const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1).getDay();
+    
+    let dateCounter = 1;
+    let week: Array<number | null> = [];
+    this.calendar = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      week.push(null);
+    }
+
+    for (let i = 0; i < daysInMonth; i++) {
+      week.push(dateCounter);
+      dateCounter++;
+      if (week.length === 7) {
+        this.calendar.push(week);
+        week = [];
+      }
+    }
+
+    if (week.length > 0) {
+      while (week.length < 7) {
+        week.push(null);
+      }
+      this.calendar.push(week);
+    }
+  }
+
+  prevMonth(): void {
+    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+    this.generateCalendar();
+  }
+
+  nextMonth(): void {
+    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+    this.generateCalendar();
+  }
+
+  selectDate(day: number | null): void {
+    this.selectedDay = day;
+    if (day !== null) {
+      this.year = (this.currentDate.getFullYear()).toString();
+      this.month = (this.currentDate.getMonth() + 1).toString();
+      this.day = (day).toString();
+      console.log(`Fecha seleccionada: ${day}/${this.currentDate.getMonth() + 1}/${this.currentDate.getFullYear()}`);
+    }
+  }
   onSubmit() {
+    console.log(this);
+    console.log('-----');
+    
+    
     if (!this.preferencesForm.valid) {
       return;
     }
     
+    // console.log(this.month)  
+    // console.log(this.year) 
+    // console.log(this.day)  
+                
 
     this.ClimaService.TraerClima(this.preferencesForm.value.location, parseInt(this.year), parseInt(this.month), parseInt(this.day)).subscribe({
       next: (clima) => {
@@ -68,8 +135,8 @@ export class PageHomeComponent {
     
           };
           
-          console.log(this.Temp )   
-                      
+          console.log(this.Temp )
+      
         this.ChatGptService.CrearPlan(newChatgpt).subscribe({
           next: (chatpt) => {
             console.log(chatpt);
@@ -103,6 +170,5 @@ export class PageHomeComponent {
   hideModal() {
     this.isModalShown = false;
   }
-     
 
 }

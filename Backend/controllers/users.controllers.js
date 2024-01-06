@@ -1,75 +1,82 @@
-import bcrypt from "bcrypt"
-import jwt  from "jsonwebtoken"
-import { usersModel } from "../models/users.models.js"
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { usersModel } from "../models/users.models.js";
 
 export const singup = async (request, response) => {
-    try {
-        let body = request.body
+  try {
+    let body = request.body;
 
-        body.password = bcrypt.hashSync(body.password, parseInt(process.env.MASTER_KEY))
+    body.password = bcrypt.hashSync(body.password, parseInt(process.env.MASTER_KEY));
 
-        let newUser = await usersModel.create(body)
+    let newUser = await usersModel.create(body);
 
-        const payload = { _id: newUser._id }
+    const payload = { _id: newUser._id };
 
-        let token = await jwt.sign(payload, process.env.JWT_KEY)
+    let token = jwt.sign(payload, process.env.JWT_KEY);
 
-        const userData = {
-            token,
-            newUser
-        }
-        response.send(userData)
+    const userData = {
+      token,
+      user: newUser,
+    };
 
-    } catch (e) {
-        console.log(e)
-        response.json(e)
-    }
-
-}
+    response.send(userData);
+  } catch (e) {
+    console.log(e);
+    response.json({ error: e.message || 'Error en el servidor' });
+  }
+};
 
 export const login = async (request, response) => {
-    try {
-        let body = request.body
+  try {
+    let body = request.body;
+    let userExist = await usersModel.findOne({ email: body.email });
 
-        let userExist = await usersModel.findOne({ email: body.email })
-        
-
-        if (!userExist) {
-            return response.json({ error: "No existe un usuario con este gmail" })
-        }
-
-        const validationsPassword = bcrypt.compareSync(body.password, userExist.password);
-
-        if (validationsPassword) {
-            const payload = { _id: userExist._id }
-            const token = jwt.sign(payload, process.env.JWT_KEY)
-
-            const userData = {
-                token,
-                // userExist
-            }
-            return response.send(userData)
-        } else {
-            return response.send({ error: "Credenciales incorrectas" })
-        }
-
-    } catch (e) {
-        console.log(e)
-        return response.send(e)
+    if (!userExist) {
+      return response.json({ token: null, error: "No existe un usuario con este correo electrónico" });
     }
-}
+
+    const validationsPassword = bcrypt.compareSync(body.password, userExist.password);
+
+    if (validationsPassword) {
+      const payload = { _id: userExist._id };
+      const token = jwt.sign(payload, process.env.JWT_KEY);
+      return response.send({ token });
+    } else {
+      return response.send({ token: null, error: "Credenciales incorrectas" });
+    }
+  } catch (e) {
+    console.log(e);
+    return response.json({ token: null, error: e.message || 'Error en el servidor' });
+  }
+};
 
 export const getUser = async (request, response) => {
-        let body = request.body;  
+  let body = request.body;
 
-    try {
-        let userExist = await usersModel.findOne({ email: body.email })
-        response.json(userExist)
+  try {
+    let userExist = await usersModel.findOne({ email: body.email });
+    response.json(userExist);
+  } catch (e) {
+    console.log(e);
+    response.json({ error: e.message || 'Error en el servidor' });
+  }
+};
 
-    } catch (e) {
-        console.log(e)
-        response.json(e)
+export const editUsername = async (req, res) => {
+  let body = req.body;
+
+  try {
+    let userExist = await usersModel.updateOne({ "_id": req.user._id }, { "$set": { "name": body.name } });
+
+    if (!userExist) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-}
+    await userExist;
+
+    return res.status(200).json({ message: 'Nombre de usuario actualizado correctamente' });
+  } catch (error) {
+    console.error('Error al editar el nombre de usuario:', error);
+    return res.status(500).json({ message: 'Hubo un error al actualizar el nombre de usuario', error: error });
+  }
+};

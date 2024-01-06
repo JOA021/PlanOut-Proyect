@@ -1,11 +1,72 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog text-center" role="document">
-    <div class="modal-content">
+    <div class="modal-content ">
       <div class="modal-header text-center">
         <h5 class="text-center container-md" id="exampleModalLabel">Actividades</h5>
       </div>
-      <div class="modal-body">
-        <!-- Contenido del Modal con listas de actividades -->
+      <div class="modal-body">        
+<div class="container mt-2">
+  <h5>Tranquilo:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Paseos por el parque.</li>
+      <li class="list-group-item">Lectura en un entorno tranquilo.</li>
+      <li class="list-group-item">Picnic en la playa o en el campo.</li>
+      <li class="list-group-item">Meditación o yoga.</li>
+      <li class="list-group-item">Visita a un spa.</li>
+  </ul>
+
+  <h5 class="mt-2">Extremo:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Deportes de aventura como paracaidismo, parapente o rafting.</li>
+      <li class="list-group-item">Escalada en roca.</li>
+      <li class="list-group-item">Senderismo en terrenos difíciles.</li>
+      <li class="list-group-item">Buceo en aguas profundas.</li>
+      <li class="list-group-item">Snowboard o esquí extremo.</li>
+  </ul>
+
+  <h5 class="mt-2">Romántico:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Cena a la luz de las velas.</li>
+      <li class="list-group-item">Paseo en bote al atardecer.</li>
+      <li class="list-group-item">Escapada de fin de semana.</li>
+      <li class="list-group-item">Noche de cine en casa.</li>
+      <li class="list-group-item">Visita a un viñedo.</li>
+  </ul>
+
+  <h5 class="mt-2">Cultural:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Visita a museos o galerías de arte.</li>
+      <li class="list-group-item">Asistencia a una obra de teatro o concierto.</li>
+      <li class="list-group-item">Participación en eventos culturales locales.</li>
+      <li class="list-group-item">Viajes a lugares históricos.</li>
+      <li class="list-group-item">Clases de cocina o degustación de vinos.</li>
+  </ul>
+
+  <h5 class="mt-2">Deportivo:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Practicar deportes como tenis, golf o ciclismo.</li>
+      <li class="list-group-item">Asistir a eventos deportivos.</li>
+      <li class="list-group-item">Hacer ejercicio juntos, como correr o hacer yoga.</li>
+      <li class="list-group-item">Jugar a deportes recreativos, como voleibol o bádminton.</li>
+  </ul>
+
+  <h5 class="mt-2">Educativo:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Tomar clases juntos, como idiomas o baile.</li>
+      <li class="list-group-item">Asistir a conferencias o charlas.</li>
+      <li class="list-group-item">Realizar actividades de aprendizaje, como talleres de arte o manualidades.</li>
+      <li class="list-group-item">Visitar un planetario o observatorio.</li>
+  </ul>
+
+  <h5 class="mt-2">Aventura al aire libre:</h5>
+  <ul class="list-group">
+      <li class="list-group-item">Campamento.</li>
+      <li class="list-group-item">Excursiones a parques naturales.</li>
+      <li class="list-group-item">Safari fotográfico.</li>
+      <li class="list-group-item">Observación de aves.</li>
+      <li class="list-group-item">Pesca.</li>
+  </ul>
+   </div>  
       </div>
     </div>
   </div>
@@ -24,14 +85,40 @@
   <p class="text-two">Planifica tu día, sin importar el clima. <strong>Tu determinación es más fuerte que cualquier tormenta</strong></p>
 </div>
 
+<form [formGroup]="preferencesForm" (ngSubmit)="onSubmit()">
 <div class="container text-left">
   <div class="row">
     <div class="col-lg">
-      <app-calendar></app-calendar>
+      <div class="calendar"> 
+        <div class="header">
+          <button id="prev" (click)="prevMonth()">&#9665;</button>
+          <span class="text" id="month-year" formControlName="month-year">{{ months[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}</span>
+          <button id="next" (click)="nextMonth()">&#9655;</button>
+        </div>
+        <table id="calendar-table">
+          <thead>
+            <tr>
+              <th>Lun</th>
+              <th>Mar</th>
+              <th>Mié</th>
+              <th>Jue</th>
+              <th>Vie</th>
+              <th>Sáb</th>
+              <th>Dom</th>
+            </tr>
+          </thead>
+          <tbody id="calendar-body">
+            <tr *ngFor="let week of calendar">
+              <td *ngFor="let day of week" (click)="selectDate(day)"[class.selected]="day === selectedDay">
+                {{ day ? day : '' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="col-lg">
       <div class="containertwo">
-        <form [formGroup]="preferencesForm" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -70,7 +157,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="activityType"><i class="bi bi-info-circle-fill text-primary"></i> Actividad</label>
+                <label for="activityType"><i data-toggle="modal" data-target="#exampleModalone" data-whatever="@mdo" class="bi bi-info-circle-fill text-primary"  ></i> Actividad</label>
                 <select class="form-control" id="activityType" formControlName="activityType">
                   <option>Tranquila</option>
                   <option>Extrema</option>
@@ -97,14 +184,15 @@
               <button type="submit" class="btn-send btn btn-secondary" value="Send message">ENVIAR</button>
             </div>
           </div>
-        </form>
       </div>
     </div>
   </div>
 </div>
-<div class="modal" id="chatptModal" tabindex="-1" role="dialog" [class.show]="isModalShown" [style.display]="isModalShown ? 'block' : 'none'">
+</form>
+
+<div class="modal fade" id="chatptModal" tabindex="-1" role="dialog" [class.show]="isModalShown" [style.display]="isModalShown ? 'block' : 'none'">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content chat-modal">
       <div class="modal-header">
         <h5 class="modal-title">Detalles del Plan</h5>
         <!-- Botón de cierre modificado para llamar a hideModal() -->

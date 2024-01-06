@@ -15,4 +15,3 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'PlanOut';
 }
-

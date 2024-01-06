@@ -1,5 +1,6 @@
 import express from 'express'
-import { singup, login, getUser } from '../controllers/users.controllers.js'
+import { singup, login, getUser, editUsername } from '../controllers/users.controllers.js'
+import { verificarToken } from '../middlewares/validation.token.js'
 
 
 const router = express.Router()
@@ -14,5 +15,6 @@ router.post('/loginUsers', login)
 router.post('/getUsers', getUser)
 
 
+router.put('/editUsername', verificarToken, editUsername)
 
 export default router

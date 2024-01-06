@@ -17,13 +17,13 @@ import { Token } from '@angular/compiler';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  profileForm: any;
+  profileForm: FormGroup ;
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router) {
     this.profileForm = new FormGroup({
       nombre: new FormControl(),
       apellido: new FormControl(),
-      edad: new FormControl(),
+       edad: new FormControl(),
       relacion: new FormControl(),
       nacionalidad: new FormControl(),
       email: new FormControl()
@@ -33,8 +33,28 @@ export class ProfileComponent {
   onSubmit() {
     if (!this.profileForm.valid) {
       return;
+
     }
     // Aquí puedes agregar la lógica para manejar la actualización del perfil.
+    const user:User = {
+      name: this.profileForm.value.nombre,
+
+    }
+
+
+
     console.log(this.profileForm.value);
+    this.userService.editUsername(user).subscribe({
+      next:(data) =>{
+        console.log(data);
+
+      },
+
+      error:(error) =>{
+        console.log(error);
+
+      }
+    })
   }
+
 }

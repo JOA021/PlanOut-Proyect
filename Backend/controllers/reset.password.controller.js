@@ -7,12 +7,15 @@ export const resetearContrasena = async (req, res) => {
   const newPassword = req.body.newPassword;
 
   try {
-  
     const user = await usersModel.findOne({ token: resetToken });
-
 
     if (!user) {
       return res.status(404).send("Usuario no encontrado.");
+    }
+
+    // Verificar que el token recibido es el mismo que el almacenado en la base de datos
+    if (user.token !== resetToken) {
+      return res.status(400).send("El token de restablecimiento de contraseña no es válido.");
     }
 
     // Hash de la nueva contraseña
@@ -33,4 +36,3 @@ export const resetearContrasena = async (req, res) => {
     }
   }
 };
-

@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../Componentes/navbar/navbar.component';
 import { FooterComponent} from '../../Componentes/footer/footer.component';
 import { RouterOutlet,RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-calendario',
   standalone: true,
