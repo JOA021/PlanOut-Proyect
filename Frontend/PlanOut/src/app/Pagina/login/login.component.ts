@@ -69,7 +69,7 @@ export class LoginComponent {
       console.log("El email no existe");
       return;
     }
-
+  
     this.emailService.sendEmail(this.userEmail).subscribe({
       next: (response) => {
         console.log(response);

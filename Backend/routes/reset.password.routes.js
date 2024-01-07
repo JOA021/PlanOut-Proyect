@@ -27,7 +27,7 @@ import { resetearContrasena } from '../controllers/reset.password.controller.js'
 
 const router = express.Router()
 
-router.post('/reset-password', verificarToken ,resetearContrasena)
+router.post('/reset-password', resetearContrasena)
 
 
 export default router

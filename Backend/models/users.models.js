@@ -14,14 +14,18 @@ const userSchema = mongoose.Schema({
     
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
 
     token: {
-        type: Number,
-        required: false
+        type: String,
+        unique: true,
+        required: false,
     }
 
 })
+
+userSchema.index({ email: 1 }, { unique: true });
 
 export const usersModel = mongoose.model('users', userSchema)

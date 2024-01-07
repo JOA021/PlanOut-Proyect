@@ -54,19 +54,19 @@ export class ForgetComponent implements OnInit {
   }
 
   resetPassword() {
-    this.showVerification = true; // Mostrar verificaciones después de presionar Enviar
-
-    if (this.resetForm && !this.passwordMismatch) {
+    this.showVerification = true;
+  
+    if (this.resetForm.valid && !this.passwordMismatch) {
       const newPassword = this.resetForm.get('newPassword')?.value;
       const confirmPassword = this.resetForm.get('confirmPassword')?.value;
       const resetToken = localStorage.getItem('resetToken');
-
+  
       if (newPassword !== confirmPassword) {
         this.changePasswordSuccess = false;
         this.changePasswordError = 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.';
         return;
       }
-
+  
       if (resetToken) {
         this.authService.resetPassword(newPassword, resetToken).subscribe({
           next: (response) => {
@@ -77,13 +77,7 @@ export class ForgetComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.changePasswordSuccess = false;
-            if (error.name === 'TokenExpiredError') {
-              this.changePasswordError = 'El enlace de restablecimiento de contraseña ha caducado.';
-            } else if (error.name === 'JsonWebTokenError') {
-              this.changePasswordError = 'Token de restablecimiento de contraseña inválido.';
-            } else {
-              this.changePasswordError = 'Error al actualizar la contraseña. Por favor, inténtalo de nuevo.';
-            }
+            this.handleResetPasswordError(error);
           },
         });
       } else {
@@ -91,6 +85,17 @@ export class ForgetComponent implements OnInit {
       }
     } else {
       console.error('El formulario no es válido');
+    }
+  }
+  
+  private handleResetPasswordError(error: any) {
+    if (error && error.error && error.error.error) {
+      this.changePasswordError = error.error.error;
+    } else if (error.status === 400) {
+      // Ajusta este bloque según el formato real de tus mensajes de error del backend.
+      this.changePasswordError = 'Error: ' + error.error; 
+    } else {
+      this.changePasswordError = 'Error al actualizar la contraseña. Por favor, inténtalo de nuevo.';
     }
   }
 }
