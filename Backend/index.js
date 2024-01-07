@@ -6,6 +6,7 @@ import routerEmail from './routes/email.routes.js'
 import newPassword from './routes/reset.password.routes.js'
 import routerPlan from './routes/chatgpt.routes.js'
 import routerClima from './routes/clima.routes.js'
+import verifyToken from './routes/verifyToken.routes.js'
 import cors from 'cors';
 
 
@@ -27,6 +28,8 @@ app.use('/newpass', newPassword)
 app.use('/api/chatgpt', routerPlan)
 
 app.use('/api/clima',routerClima)
+
+app.use('/confrimToken', verifyToken)
 
 // Conectar base de datos
 connectDataBase()

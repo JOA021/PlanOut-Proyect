@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
 import mg from 'nodemailer-mailgun-transport';
-import jwt from 'jsonwebtoken';
 import { usersModel } from '../models/users.models.js';
 import dotenv from 'dotenv';
 
