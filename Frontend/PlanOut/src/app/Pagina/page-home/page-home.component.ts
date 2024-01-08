@@ -137,18 +137,25 @@ export class PageHomeComponent {
           
           console.log(this.Temp )
       
-        this.ChatGptService.CrearPlan(newChatgpt).subscribe({
-          next: (chatpt) => {
-            console.log(chatpt);
-            this.chatptDetails = JSON.stringify(chatpt.message); // Actualiza la variable con los datos de chatpt
-            this.showModal(); //
-            this.router.navigate(['/home']);
-          },
-          error: (error) => {
-            console.error(error);
-            // Handle registration error
-          }
-        });
+          this.ChatGptService.CrearPlan(newChatgpt).subscribe({
+            next: (chatpt) => {
+              
+              if (chatpt.message) {
+                this.chatptDetails = chatpt.message.replace(/\n/g, '<br>');
+            } else {
+                
+                this.chatptDetails = 'Mensaje no disponible';
+            }
+              console.log(this.chatptDetails)
+                         
+              this.showModal(); //
+              this.router.navigate(['/home']);
+            },
+            error: (error) => {
+              console.error(error);
+              // Handle registration error
+            }
+          });
         
         
       },
