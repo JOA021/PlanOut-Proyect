@@ -180,16 +180,19 @@
               </div>
             </div>
             <div class="col-md-12">
-              <br>
-              <button type="submit" class="btn-send btn btn-secondary" value="Send message">ENVIAR</button>
+              <br>   
+
+                <button type="submit" class="button"  value="Send message" onclick="this.classList.toggle('button--loading')"> 
+                  <span class="button__text"> ENVIAR </span> 
+                </button>
+
+              </div>
             </div>
           </div>
       </div>
     </div>
   </div>
-</div>
 </form>
-
 <div class="modal fade" id="chatptModal" tabindex="-1" role="dialog" [class.show]="isModalShown" [style.display]="isModalShown ? 'block' : 'none'">
   <div class="modal-dialog" role="document">
     <div class="modal-content chat-modal">

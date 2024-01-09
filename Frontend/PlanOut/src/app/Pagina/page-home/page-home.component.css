@@ -10,6 +10,57 @@
   
 }
 
+.button {
+  position: relative;
+  padding: 8px 16px;
+  background: #31485E;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:active {
+  background:  #1FBA6F;
+}
+
+.button__text {
+  font: bold 15px  'Montserrat', san-serif;
+  color: #ffffff;
+  transition: all 0.2s;
+}
+
+.button--loading .button__text {
+  visibility: hidden;
+  opacity: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
 
 
 .slide {
@@ -135,6 +186,7 @@ h5{
 color: white;
 font-family: 'Montserrat', sans-serif;
 font-weight: 800;
+font-size: large;
 }
 
 li{
@@ -259,7 +311,7 @@ background-color: #ddd; /* Cambia el color de fondo al pasar el mouse sobre el c
 
 
 
-button {
+btn {
   border-radius: 5px;
   border: 1px solid #31485E;
   background-color: #fcfffe;
