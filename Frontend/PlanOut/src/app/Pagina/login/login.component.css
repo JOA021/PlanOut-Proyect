@@ -244,3 +244,15 @@ input {
     font-family: 'Montserrat', sans-serif;
 	
 }
+
+.success-message{
+		font-size: 15px;
+		color: red;
+		font-weight: 500;
+		line-height: 20px;
+		letter-spacing: 0px;
+		margin: 10px;
+		padding-left: 70px;
+		width: 100%;
+		text-align: center;
+}
