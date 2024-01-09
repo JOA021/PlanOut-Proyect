@@ -14,9 +14,8 @@ body {
   padding: 15px;
   width: 300px;
   height: 100px;
+  
 }
-
-
 
 button {
 border-radius: 20px;
@@ -36,7 +35,7 @@ justify-content: center;
   position: relative;
   justify-content: center;
   align-items: center;
-  margin-left: 17%;
+  margin-left: auto;
   margin-bottom: 20px;
 }
 
