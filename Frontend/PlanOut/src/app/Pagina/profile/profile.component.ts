@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { NavbarComponent } from '../../Componentes/navbar/navbar.component';
@@ -18,31 +18,32 @@ import { Token } from '@angular/compiler';
 })
 export class ProfileComponent {
   profileForm: FormGroup ;
+  user: User | null = null;
 
   constructor(private userService: UserService, private router: Router) {
     this.profileForm = new FormGroup({
       nombre: new FormControl(),
-      apellido: new FormControl(),
-       edad: new FormControl(),
-      relacion: new FormControl(),
-      nacionalidad: new FormControl(),
       email: new FormControl()
+
     });
+    this.userService.Profile({}).subscribe(user => {
+      this.user = user;
+      this.profileForm.patchValue({ nombre: user.name }); // Update the form
+      console.log(this.user)
+    });
+
   }
 
-  onSubmit() {
+
+   onSubmit() {
     if (!this.profileForm.valid) {
       return;
-
     }
-    // Aquí puedes agregar la lógica para manejar la actualización del perfil.
+
     const user:User = {
       name: this.profileForm.value.nombre,
-
-    }
-
-
-
+      }
+      console.log(name)
     console.log(this.profileForm.value);
     this.userService.editUsername(user).subscribe({
       next:(data) =>{

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, Token } from "../models/users.models"
-
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class UserService {
   register(user: User): Observable<Token | { error: string }> {
     return this.http.post<Token>(`${this.apiUrl}/singupUsers`, user, { headers: this.headers });
   }
-  
+
   login(user: User): Observable<{ token: string } | { error: string }> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/loginUsers`, JSON.stringify(user), { headers: this.headers });
   }
@@ -37,13 +37,15 @@ export class UserService {
       localStorage.removeItem(this.tokenName);
     }
   }
-  
+
 
   Profile(user: User): Observable<User> {
-    let headers = this.headers;
-    const token: string = localStorage.getItem(this.tokenName) as string;
-    headers = headers.append("Authorization", token);
-    return this.http.post<User>(this.apiUrl + "/getUsers", JSON.stringify(user), { headers: this.headers });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem(this.tokenName)}`,
+      'Content-Type': 'application/json' // Assuming JSON data
+    });
+
+    return this.http.get<User>(this.apiUrl + '/getUsers', { headers });
   }
 
   editUsername(user: User) {
@@ -51,5 +53,12 @@ export class UserService {
     const token: string = localStorage.getItem(this.tokenName) as string;
     headers = headers.append("Authorization", token);
     return this.http.put(this.apiUrl + "/editUsername", JSON.stringify(user), { headers: headers });
+  }
+
+  getCurrentUser(): Observable<User | null> {
+    return this.http.get<User>(this.apiUrl + '/users/current')
+      .pipe(
+        map(user => user || null) // Handle potential null response
+      );
   }
 }

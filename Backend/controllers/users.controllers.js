@@ -32,7 +32,7 @@ export const login = async (request, response) => {
     let userExist = await usersModel.findOne({ email: body.email });
 
     if (!userExist) {
-      return response.json({ token: null, error: "No existe un usuario con este correo electrónico" });
+      return response.json({ token: null, error: "No existe un usuario con este correo electrÃ³nico" });
     }
 
     const validationsPassword = bcrypt.compareSync(body.password, userExist.password);
@@ -51,10 +51,13 @@ export const login = async (request, response) => {
 };
 
 export const getUser = async (request, response) => {
-  let body = request.body;
+  let token = request.headers.authorization?.split(' ')[1];;
+  let decodedToken = jwt.decode(token, process.env.JWT_SECRET);
+  let id = decodedToken._id;
+  console.log(decodedToken)
 
   try {
-    let userExist = await usersModel.findOne({ email: body.email });
+    const userExist = await usersModel.findOne({ "_id": id });
     response.json(userExist);
   } catch (e) {
     console.log(e);
