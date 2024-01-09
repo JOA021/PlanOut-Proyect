@@ -22,6 +22,16 @@ body {
 
 }
 
+.error-message{
+	font-size: 15px;
+	color: red;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	margin: 10px 0 10px;
+	width: 100%;
+}
+
 
 h1 {
 	font-weight: bold;

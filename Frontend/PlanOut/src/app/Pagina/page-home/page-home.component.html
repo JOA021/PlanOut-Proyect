@@ -193,16 +193,18 @@
 <div class="modal fade" id="chatptModal" tabindex="-1" role="dialog" [class.show]="isModalShown" [style.display]="isModalShown ? 'block' : 'none'">
   <div class="modal-dialog" role="document">
     <div class="modal-content chat-modal">
-      <div class="modal-header">
-        <h5 class="modal-title">Detalles del Plan</h5>
-        <!-- Botón de cierre modificado para llamar a hideModal() -->
-        <button type="button" class="close" (click)="hideModal()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header justify-content-center">
+        <h5 class="modal-title align-text-center justify-content-center" >Detalles del Plan</h5>
+        
       </div>
       <div class="modal-body">
         <p [innerHTML]="chatptDetails" style="text-align: justify"></p>
       </div>
+      <div class="modal-footer justify-content-center ">
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal"  >Guardar</button>
+             <!-- Botón de cierre modificado para llamar a hideModal() -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideModal()" >Salir </button>
+        </div>
     </div>
   </div>
 </div>

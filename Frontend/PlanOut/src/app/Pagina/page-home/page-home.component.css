@@ -10,6 +10,8 @@
   
 }
 
+
+
 .slide {
   display: inline-block;
   width: 100%;
@@ -130,7 +132,7 @@ font-size: 19px;
 }
 
 h5{
-color: #31485E;
+color: white;
 font-family: 'Montserrat', sans-serif;
 font-weight: 800;
 }

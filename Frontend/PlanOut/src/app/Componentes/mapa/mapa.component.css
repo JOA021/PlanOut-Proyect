@@ -2,13 +2,7 @@ body {
     background-color: #f8f9fa; /* Color de fondo opcional */
 }
 
-#map {
-    height: 400px;
-    width: 90%;
-    background-color: aliceblue;
-    border-radius: 10px;
-  }
-  
+
   input {
     margin: 25px;
     padding: 5px;
@@ -33,14 +27,13 @@ body {
     position: relative;
     justify-content: center;
     align-items: center;
-    margin-left: 13%;
+    margin-left: 18%;
     margin-bottom: 20px;
+    width: 80%;
 }
 
 @media (max-width: 700px) {
-	#map{
-	  width:85%;
-	  }
+
   #calcularRutaButton{
     margin-left: 20%;
   }

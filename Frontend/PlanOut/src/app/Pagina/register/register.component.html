@@ -7,12 +7,12 @@
         <!-- Nombre -->
         <input type="text" formControlName="name" placeholder="Nombre" />
         <div *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
-          <div *ngIf="registerForm.controls['name'].hasError('required')">El nombre es obligatorio.</div>
+          <div id="requisitos" *ngIf="registerForm.controls['name'].hasError('required')">El nombre es obligatorio.</div>
         </div>
   
         <!-- Correo Electrónico -->
         <input type="email" formControlName="email" placeholder="Correo" />
-      <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+      <div id="requisitos" *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
         <div *ngIf="registerForm.controls['email'].hasError('required')">El correo electrónico es obligatorio.</div>
         <div *ngIf="registerForm.controls['email'].hasError('email')">Ingresa un correo electrónico válido.</div>
         <div *ngIf="registerForm.controls['email'].hasError('dotAfterAt')">Debe haber al menos un punto después de "&#64;" en el correo.</div>
@@ -20,7 +20,7 @@
   
         <!-- Contraseña -->
         <input type="password" formControlName="password" placeholder="Clave" />
-        <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+        <div id="requisitos" *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
           <div *ngIf="registerForm.controls['password'].hasError('required')">La contraseña es obligatoria.</div>
           <div *ngIf="registerForm.controls['password'].hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</div>
           <div *ngIf="registerForm.controls['password'].hasError('invalidPassword')">

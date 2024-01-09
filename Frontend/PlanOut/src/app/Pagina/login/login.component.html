@@ -3,7 +3,7 @@
       <div class="modal-content">
         <i class="bi bi-chat-dots-fill text-center icono-personalizado"></i>
         <div class="modal-header">
-          <h5 class="text-center container-md">Si no recuerdas tu información, te ayudaremos.</h5>
+          <h5 class="text-center container-md">Si no recuerdas tu información, te ayudaremos</h5>
         </div>
         <div class="modal-body justify-content-center">
           <form (ngSubmit)="sendEmail()">
@@ -29,19 +29,19 @@
         <span>Ingresa tus datos</span>
         <input type="email" formControlName="email" placeholder="Correo Electrónico" />
         <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
-          <p class="error-message">El correo electrónico es obligatorio.</p>
+          <p class="error-message">El correo electrónico es obligatorio</p>
         </div>
         <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
-          <p class="error-message">Ingrese un correo electrónico válido.</p>
+          <p class="error-message">Ingrese un correo electrónico válido</p>
         </div>
         <input type="password" formControlName="password" placeholder="Contraseña" />
         <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-          <p class="error-message">La contraseña es obligatoria.</p>
+          <p class="error-message">La contraseña es obligatoria</p>
         </div>
         <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">¿Olvidaste tu contraseña?</a>
         <a routerLink="/register" class="register">Crear una cuenta</a>
         <div *ngIf="loginForm.valid && !userAuthenticated">
-          <p class="error-message">Credenciales incorrectas. Verifica tu correo y contraseña.</p>
+          <p class="error-message">Credenciales incorrectas. Verifica tu correo y contraseña</p>
         </div>
         <div *ngIf="!loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched && !userAuthenticated">
             <p class="error-message">{{ errorMessage }}</p>

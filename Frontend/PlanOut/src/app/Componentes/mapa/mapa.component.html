@@ -1,5 +1,6 @@
 <div class="container   justify-content-center  mt-5">
-  <google-map height="500px"
+  <div class="map" >
+    <google-map height="400px"
             width="900px"
             [center]="center"
             [zoom]="zoom"
@@ -9,6 +10,7 @@
               <map-marker [position]="position" [options]="markerOptions" />
             }
 </google-map>
+</div>
   <input type="text" [(ngModel)]="origen" placeholder="Origen">
   <input type="text" id="destinoInput" placeholder="Destino">
   <button (click)="OnSubmit()" class="btn btn-secondary">Calcular Ruta</button>

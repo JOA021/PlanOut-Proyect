@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { User } from '../../models/users.models';
 import { Token } from '@angular/compiler';
 import { EmailService } from '../../services/email.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,6 @@ export class LoginComponent {
         password: this.loginForm.value.password,
         email: this.loginForm.value.email,
       };
-  
       this.userService.login(user).subscribe(
         (response: { token: string } | { error: string }) => {
           if ('token' in response) {
@@ -94,6 +94,8 @@ export class LoginComponent {
     }
   }
 }
+
+
 
 
 

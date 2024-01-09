@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 
 export class ForgetComponent implements OnInit {
+  rutaImagen = 'assets/logo.png';
   resetForm: FormGroup;
   passwordMismatch: boolean = false;
   changePasswordSuccess: boolean = false;

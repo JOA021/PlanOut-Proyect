@@ -35,7 +35,6 @@ export class PageHomeComponent {
   isModalShown: boolean = false;
 
 
-  
 
   constructor(private ChatGptService: ChatGptService,private ClimaService: ClimaService, private router: Router) {
     this.preferencesForm = new FormGroup({
@@ -139,15 +138,15 @@ export class PageHomeComponent {
       
           this.ChatGptService.CrearPlan(newChatgpt).subscribe({
             next: (chatpt) => {
-              
+
               if (chatpt.message) {
                 this.chatptDetails = chatpt.message.replace(/\n/g, '<br>');
             } else {
-                
+
                 this.chatptDetails = 'Mensaje no disponible';
             }
               console.log(this.chatptDetails)
-                         
+
               this.showModal(); //
               this.router.navigate(['/home']);
             },

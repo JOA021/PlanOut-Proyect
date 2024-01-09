@@ -8,6 +8,7 @@ body{
 
 
   .logologin {
+    margin-left: 30%;
     width: 40%;
      height: auto;
      margin-top: 30px;
@@ -15,7 +16,18 @@ body{
 
   } 
 
-
+  #requisitos{
+    font-size: 13px;
+    color:red;
+    font-weight: 600;
+    line-height: 2px;
+    letter-spacing: 0.5px;
+    margin: 5px 0 12px;
+    width: 100%;
+    text-align: center;
+    padding: 6px;
+  }
+  
   .vid-container{
     background: url("../assets/fondo01.png") ;
     background-position: center;
@@ -80,6 +92,7 @@ body{
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    margin-bottom: 6px;
   }
   .box button:active{
     background:#27ae60;
